@@ -33,7 +33,7 @@ EOF
   }
 }
 
-data "ignition_systemd_unit" "sshd-port" {
+data "ignition_systemd_unit" "sshd_port" {
   name = "sshd.socket"
   dropin = [{
     name = "10-sshd-port.conf"
@@ -47,7 +47,7 @@ EOF
 
 data "ignition_config" "bastion" {
   systemd_units = [
-    "${data.ignition_systemd_unit.sshd-port.id}",
+    "${data.ignition_systemd_unit.sshd_port.id}",
   ]
   users = [
     "${data.ignition_user.tunnel.id}",

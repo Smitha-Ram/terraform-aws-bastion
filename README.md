@@ -26,6 +26,7 @@ Deploy a minimal, auto-healing, and immutable SSH Bastion host on AWS.
   * ```ssh_port``` - Port for SSH to listen on
   * ```key_name``` - specify aws ssh key name to launch instance with
   * ```iam_instance_profile``` - specify an IAM instance profile
+  * ```associate_public_ip_address``` - associate public ip address for EC2 instance
 
 ### Outputs
 

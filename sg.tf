@@ -11,7 +11,7 @@ resource "aws_security_group_rule" "bastion_ssh_ingress" {
   from_port = "${var.ssh_port}"
   to_port = "${var.ssh_port}"
   protocol = "tcp"
-  cidr_blocks = "${var.allowed_cidr}"
+  cidr_blocks = "${var.allowed_cidrs}"
   security_group_id = "${aws_security_group.bastion.id}"
 }
 
