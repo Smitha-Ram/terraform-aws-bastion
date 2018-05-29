@@ -1,6 +1,6 @@
 resource "aws_autoscaling_group" "bastion" {
   name = "bastion"
-  vpc_zone_identifier = "${var.subnets}"
+  vpc_zone_identifier = ["${var.subnets}"]
   desired_capacity = "1"
   min_size = "1"
   max_size = "1"

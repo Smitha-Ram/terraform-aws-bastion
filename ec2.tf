@@ -23,6 +23,7 @@ data "ignition_user" "tunnel" {
 
 data "ignition_file" "sshd_config" {
   path = "/etc/ssh/sshd_config"
+  filesystem = "root"
   content {
     content = <<EOF
 AllowUsers tunnel core
