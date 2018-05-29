@@ -34,7 +34,7 @@ EOF
 }
 
 data "ignition_systemd_unit" "sshd-port" {
-  name: "sshd.socket"
+  name = "sshd.socket"
   dropin = [{
     name: "10-sshd-port.conf"
     content = <<EOF
