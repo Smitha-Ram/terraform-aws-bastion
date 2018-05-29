@@ -11,7 +11,7 @@ Deploy a minimal, auto-healing, and immutable SSH Bastion host on AWS.
   * Automatically re-deploy via ASG and health checks
   * Automatic updates via CoreOS
   * Static IP via Network Load Balancer
-  * Public keys cached in s3 bucket
+  * Public keys fetched on the fly from s3 bucket
 
 ## Usage  ##
 
@@ -23,6 +23,9 @@ Deploy a minimal, auto-healing, and immutable SSH Bastion host on AWS.
   * ```allowed_cidrs``` - CIDRs that are allowed to reach instance via SSH
   * ```vpc_id``` - ID of VPC to launch instances in
   * ```subnets``` - What subnets to allow ASG to launch instances in
+  * ```ssh_port``` - Port for SSH to listen on
+  * ```key_name``` - specify aws ssh key name to launch instance with
+  * ```iam_instance_profile``` - specify an IAM instance profile
 
 ### Outputs
 
@@ -31,14 +34,15 @@ Deploy a minimal, auto-healing, and immutable SSH Bastion host on AWS.
 ### Example
 
 ```bash
-module "bastion-usw2" {
+module "bastion" {
   source = "github.com/BitGo/terraform-aws-bastion"
   version = "0.0.1"
   instance_type = "t2.nano"
   authorized_keys_directory = "keys/ssh/"
-  authorized_key_names = "alice, bob, mallory"
+  authorized_key_names = ["alice", "bob", "mallory"]
   allowed_cidrs = ["0.0.0.0/0"]
-  vpc_id = "${module.vpc-usw2.vpc_id}"
-  subnets = "${module.vpc-usw2.public_subnets}"
+  vpc_id = "vpc-123456"
+  ssh_port = 22
+  subnets = ["subnet-123456", "subnet-6789123", "subnet-321321"]
 }
 ```

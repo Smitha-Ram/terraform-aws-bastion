@@ -23,9 +23,32 @@ data "ignition_user" "tunnel" {
 
 data "ingition_file" "sshd_config" {
   path = "/etc/ssh/sshd_config"
+  content {
+    content = <<EOF
+AllowUsers tunnel core
+AuthenticationMethods publickey
+PermitRootLogin no
+UsePrivilegeSeparation sandbox
+EOF
+  }
+}
+
+data "ignition_systemd_unit" "sshd-port" {
+  name: "sshd.socket"
+  dropin = [{
+    name: "10-sshd-port.conf"
+    content = <<EOF
+[Socket]
+ListenStream=
+ListenStream=${var.ssh_port}
+EOF
+  }]
 }
 
 data "ignition_config" "bastion" {
+  systemd_units = [
+    "${data.ignition_systemd_unit.sshd-port.id}",
+  ]
   users = [
     "${data.ignition_user.tunnel.id}",
   ]
@@ -47,7 +70,7 @@ resource "aws_launch_configuration" "bastion" {
   }
   iam_instance_profile = "${var.iam_instance_profile}"
   associate_public_ip_address = "${var.associate_public_ip_address}"
-  key_name = "lrvick" // temporary hardcoded key hack so I can develop s3 key fetch script
+  key_name = "${var.key_name}"
   lifecycle {
     create_before_destroy = true
   }
