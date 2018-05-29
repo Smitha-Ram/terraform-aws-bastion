@@ -21,7 +21,7 @@ data "ignition_user" "tunnel" {
   shell = "/bin/false"
 }
 
-data "ingition_file" "sshd_config" {
+data "ignition_file" "sshd_config" {
   path = "/etc/ssh/sshd_config"
   content {
     content = <<EOF
