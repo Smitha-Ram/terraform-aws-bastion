@@ -46,7 +46,7 @@ EOF
 }
 
 data "ignition_config" "bastion" {
-  systemd_units = [
+  systemd = [
     "${data.ignition_systemd_unit.sshd_port.id}",
   ]
   users = [
