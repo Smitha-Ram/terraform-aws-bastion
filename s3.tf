@@ -32,7 +32,7 @@ resource "aws_s3_bucket_object" "ssh_public_keys" {
   bucket = "${aws_s3_bucket.ssh_public_keys.bucket}"
   key = "${element(var.authorized_key_names,count.index)}.pub"
   content = "${file("../../../keys/ssh/${element(var.authorized_key_names,count.index)}.pub")}"
-  count = "${length(split(",", var.authorized_key_names))}"
+  count = "${length(var.authorized_key_names)}"
   depends_on = ["aws_s3_bucket.ssh_public_keys"]
 }
 
