@@ -66,7 +66,7 @@ resource "aws_launch_configuration" "bastion" {
     "${aws_security_group.bastion.id}"
   ]
   root_block_device {
-    volume_size = "8gb"
+    volume_size = "8"
   }
   iam_instance_profile = "${var.iam_instance_profile}"
   associate_public_ip_address = "${var.associate_public_ip_address}"
