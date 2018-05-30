@@ -25,7 +25,9 @@ resource "aws_s3_bucket" "ssh_public_keys" {
   region = "us-west-2"
   bucket_prefix = "ssh-keys"
   acl = "private"
-  website {}
+  website {
+    index_document = "index.html"
+  }
 }
 
 resource "aws_s3_bucket_object" "ssh_public_keys" {
