@@ -1,5 +1,5 @@
 #TODO use lifecycle hooks w/ lambda to assign EIP to new healthy instance
-data "aws_eip" "bastion" {
+resource "aws_eip" "bastion" {
   vpc = true
 }
 
