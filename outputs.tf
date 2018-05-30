@@ -1,3 +1,3 @@
-output "eip" {
-  value = "${aws_eip.bastion.public_ip}"
+output "dns_name" {
+  value = "${aws_lb.bastion.dns_name}"
 }

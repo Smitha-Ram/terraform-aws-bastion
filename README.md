@@ -30,7 +30,7 @@ Deploy a minimal, auto-healing, and immutable SSH Bastion host on AWS.
 
 ### Outputs
 
-  * ```eip``` - Elastic IP of Network Load Balancer to reach bastion hosts at.
+  * ```dns_name``` - DNS Name of the load balancer used to reach bastions
 
 ### Example
 

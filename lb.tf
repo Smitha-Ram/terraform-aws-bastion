@@ -1,17 +1,9 @@
-resource "aws_eip" "bastion" {
-  vpc = true
-}
-
 resource "aws_lb" "bastion" {
   name = "bastion"
   internal = false
   load_balancer_type = "network"
   subnets = ["${var.subnets}"]
   enable_deletion_protection = true
-  subnet_mapping {
-    subnet_id = "${element(var.subnets, 0)}"
-    allocation_id = "${aws_eip.bastion.id}"
-  }
 }
 
 resource "aws_lb_target_group" "bastion" {
