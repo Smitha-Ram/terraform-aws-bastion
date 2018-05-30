@@ -24,7 +24,6 @@ resource "aws_lb_target_group" "bastion" {
     interval = "30"
     port = "${var.ssh_port}"
     protocol = "TCP"
-    timeout = "10"
     healthy_threshold = "10"
     unhealthy_threshold= "10"
   }
