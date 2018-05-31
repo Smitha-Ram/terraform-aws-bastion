@@ -1,8 +1,3 @@
-#TODO use lifecycle hooks w/ lambda to assign EIP to new healthy instance
-resource "aws_eip" "bastion" {
-  vpc = true
-}
-
 resource "aws_autoscaling_group" "bastion" {
   name = "bastion"
   vpc_zone_identifier = ["${var.subnets}"]
@@ -25,11 +20,6 @@ resource "aws_autoscaling_group" "bastion" {
       "value" = "bastion"
       "propagate_at_launch" = "true"
     },
-    {
-      "key" = "EIP"
-      "value" = "${aws_eip.bastion.public_ip}"
-      "propagate_at_launch" = "true"
-    }
   ]
   lifecycle {
     create_before_destroy = true

@@ -34,6 +34,18 @@ EOF
   }
 }
 
+data "ignition_file" "sshd_config" {
+  path = "/etc/ssh/authorized_keys.sh"
+  filesystem = "root"
+  mode = "-rwxr-xr-x"
+  content {
+    content = <<EOF
+#!/bin/bash
+curl -sf "${aws_s3_bucket.ssh_public_keys.website_endpoint}/$${1}.keys"
+EOF
+  }
+}
+
 data "ignition_systemd_unit" "sshd_port" {
   name = "sshd.socket"
   dropin = [{
