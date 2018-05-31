@@ -34,10 +34,12 @@ EOF
   }
 }
 
-data "ignition_file" "sshd_config" {
+data "ignition_file" "sshd_authorized_keys" {
   path = "/etc/ssh/authorized_keys.sh"
   filesystem = "root"
-  mode = "-rwxr-xr-x"
+  mode = "493"
+  uid = "0"
+  gid = "0"
   content {
     content = <<EOF
 #!/bin/bash
