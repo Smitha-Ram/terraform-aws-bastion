@@ -69,6 +69,7 @@ data "ignition_config" "bastion" {
   ]
   files = [
     "${data.ignition_file.sshd_config.id}",
+    "${data.ignition_file.sshd_authorized_keys.id}",
   ]
 }
 
