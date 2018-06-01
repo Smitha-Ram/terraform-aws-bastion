@@ -21,6 +21,7 @@ Deploy a minimal, auto-healing, and immutable SSH Bastion host on AWS.
   * ```authorized_keys_directory``` - folder of keys to allow for ssh
   * ```authorized_key_names``` - names of public keys to allow for ssh
   * ```allowed_cidrs``` - CIDRs that are allowed to reach instance via SSH
+  * ```allowed_users``` - Allowed users to ssh. Defaults to shellless 'tunnel' user
   * ```vpc_id``` - ID of VPC to launch instances in
   * ```subnets``` - What subnets to allow ASG to launch instances in
   * ```ssh_port``` - Port for SSH to listen on

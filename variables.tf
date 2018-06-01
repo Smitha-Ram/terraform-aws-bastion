@@ -1,6 +1,7 @@
 variable "instance_type" { default = "t2.nano" }
 variable "authorized_keys_directory" {}
 variable "authorized_key_names" { type = "list" }
+variable "allowed_users" { type = "list", default = ["tunnel"] }
 variable "associate_public_ip_address" { default = true }
 variable "iam_instance_profile" { default = "" }
 variable "allowed_cidrs" { type="list" }

@@ -26,7 +26,7 @@ data "ignition_file" "sshd_config" {
   filesystem = "root"
   content {
     content = <<EOF
-AllowUsers tunnel core
+AllowUsers ${join(" ",var.allowed_users)}
 AuthenticationMethods publickey
 PermitRootLogin no
 AuthorizedKeysCommandUser root
@@ -61,9 +61,21 @@ EOF
   }]
 }
 
+data "ignition_systemd_unit" "mask_docker" {
+  name = "docker.service"
+  mask = true
+}
+
+data "ignition_systemd_unit" "mask_containerd" {
+  name = "containerd.service"
+  mask = true
+}
+
 data "ignition_config" "bastion" {
   systemd = [
     "${data.ignition_systemd_unit.sshd_port.id}",
+    "${data.ignition_systemd_unit.mask_containerd}",
+    "${data.ignition_systemd_unit.mask_docker}",
   ]
   users = [
     "${data.ignition_user.tunnel.id}",
