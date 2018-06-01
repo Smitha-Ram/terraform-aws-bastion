@@ -74,8 +74,8 @@ data "ignition_systemd_unit" "mask_containerd" {
 data "ignition_config" "bastion" {
   systemd = [
     "${data.ignition_systemd_unit.sshd_port.id}",
-    "${data.ignition_systemd_unit.mask_containerd}",
-    "${data.ignition_systemd_unit.mask_docker}",
+    "${data.ignition_systemd_unit.mask_containerd.id}",
+    "${data.ignition_systemd_unit.mask_docker.id}",
   ]
   users = [
     "${data.ignition_user.tunnel.id}",
