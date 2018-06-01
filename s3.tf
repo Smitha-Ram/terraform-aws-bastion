@@ -7,11 +7,6 @@ resource "aws_s3_bucket" "ssh_public_keys" {
   }
 }
 
-data "external" "ssh_public_key_fingerprint" {
-  program  = ["${file("${path.module}/scripts/get_key_fingerprint.sh")}"]
-  count = "${length(var.authorized_key_names)}"
-}
-
 resource "aws_s3_bucket_object" "ssh_public_keys" {
   bucket = "${aws_s3_bucket.ssh_public_keys.bucket}"
   key = "${
