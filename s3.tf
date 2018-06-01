@@ -7,9 +7,30 @@ resource "aws_s3_bucket" "ssh_public_keys" {
   }
 }
 
+data "external" "ssh_public_key_fingerprint" {
+  program  = ["${file("${path.module}/scripts/get_key_fingerprint.sh")}"]
+  count = "${length(var.authorized_key_names)}"
+}
+
 resource "aws_s3_bucket_object" "ssh_public_keys" {
   bucket = "${aws_s3_bucket.ssh_public_keys.bucket}"
-  key = "${element(var.authorized_key_names,count.index)}.pub"
+  key = "${
+    replace(
+      base64sha256(
+        base64decode(
+          element(
+            split(
+              " ",
+              file("../../../keys/ssh/${element(var.authorized_key_names,count.index)}.pub")
+            ),
+            "1"
+          )
+        )
+      ),
+      "=",
+      ""
+    )
+  }"
   content = "${file("../../../keys/ssh/${element(var.authorized_key_names,count.index)}.pub")}"
   count = "${length(var.authorized_key_names)}"
   depends_on = ["aws_s3_bucket.ssh_public_keys"]

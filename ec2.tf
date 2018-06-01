@@ -29,7 +29,8 @@ data "ignition_file" "sshd_config" {
 AllowUsers tunnel core
 AuthenticationMethods publickey
 PermitRootLogin no
-UsePrivilegeSeparation sandbox
+AuthorizedKeysCommandUser root
+AuthorizedKeysCommand /etc/ssh/authorized_keys.sh %u %f
 EOF
   }
 }
@@ -43,7 +44,7 @@ data "ignition_file" "sshd_authorized_keys" {
   content {
     content = <<EOF
 #!/bin/bash
-curl -sf "${aws_s3_bucket.ssh_public_keys.website_endpoint}/$${1}.keys"
+curl -sf "${aws_s3_bucket.ssh_public_keys.website_endpoint}/$${2}.keys"
 EOF
   }
 }
