@@ -29,4 +29,5 @@ resource "aws_s3_bucket_object" "ssh_public_keys" {
   content = "${file("../../../keys/ssh/${element(var.authorized_key_names,count.index)}.pub")}"
   count = "${length(var.authorized_key_names)}"
   depends_on = ["aws_s3_bucket.ssh_public_keys"]
+  acl = "public-read"
 }
