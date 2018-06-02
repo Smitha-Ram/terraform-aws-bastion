@@ -17,7 +17,7 @@ data "aws_ami" "coreos" {
 
 data "ignition_user" "tunnel" {
   name = "tunnel"
-  home = "/dev/shm"
+  home_dir = "/dev/shm"
   no_create_home = true
   shell = "/bin/false"
 }
