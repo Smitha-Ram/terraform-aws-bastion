@@ -30,7 +30,7 @@ data "ignition_file" "sshd_config" {
 AllowUsers ${join(" ",var.allowed_users)}
 AuthenticationMethods publickey
 PermitRootLogin no
-AuthorizedKeysCommandUser root
+AuthorizedKeysCommandUser nobody
 AuthorizedKeysCommand /etc/ssh/authorized_keys.sh %u %f
 EOF
   }
