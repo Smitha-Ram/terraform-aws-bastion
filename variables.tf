@@ -1,3 +1,4 @@
+variable "name" { default = "bastion" }
 variable "instance_type" { default = "t2.nano" }
 variable "authorized_keys_directory" {}
 variable "authorized_key_names" { type = "list" }
