@@ -1,5 +1,5 @@
 resource "aws_lb" "bastion" {
-  name = "bastion"
+  name = "${var.name}"
   internal = false
   load_balancer_type = "network"
   subnets = ["${var.subnets}"]
