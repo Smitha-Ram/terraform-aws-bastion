@@ -7,7 +7,7 @@ resource "aws_lb" "bastion" {
 }
 
 resource "aws_lb_target_group" "bastion" {
-  name = "bastion"
+  name = "${var.name}"
   port = "${var.ssh_port}"
   protocol = "TCP"
   vpc_id = "${var.vpc_id}"
