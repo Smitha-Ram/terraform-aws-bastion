@@ -1,5 +1,5 @@
 resource "aws_lb" "bastion" {
-  name = "bastion"
+  name = "${var.name}"
   internal = false
   load_balancer_type = "network"
   subnets = ["${var.subnets}"]
@@ -7,7 +7,7 @@ resource "aws_lb" "bastion" {
 }
 
 resource "aws_lb_target_group" "bastion" {
-  name = "bastion"
+  name = "${var.name}"
   port = "${var.ssh_port}"
   protocol = "TCP"
   vpc_id = "${var.vpc_id}"

@@ -1,5 +1,5 @@
 resource "aws_autoscaling_group" "bastion" {
-  name = "bastion - ${aws_launch_configuration.bastion.name}"
+  name = "${var.name} - ${aws_launch_configuration.bastion.name}"
   vpc_zone_identifier = ["${var.subnets}"]
   desired_capacity = "1"
   min_size = "1"
@@ -17,7 +17,7 @@ resource "aws_autoscaling_group" "bastion" {
   tags = [
     {
       "key" = "name"
-      "value" = "bastion"
+      "value" = "${var.name}"
       "propagate_at_launch" = "true"
     },
   ]
