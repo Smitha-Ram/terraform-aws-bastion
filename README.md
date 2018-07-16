@@ -33,6 +33,8 @@ Deploy a minimal, auto-healing, and immutable SSH Bastion host on AWS.
 ### Outputs
 
   * ```dns_name``` - DNS Name of the load balancer used to reach bastions
+  * ```security_group``` - The security group id created and assigned to the bastion host
+  * ```zone_id``` - The ELB Zone Id assigned to the load balancer. Used by Route53 for alias records.
 
 ### Example
 
