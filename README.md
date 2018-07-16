@@ -17,6 +17,7 @@ Deploy a minimal, auto-healing, and immutable SSH Bastion host on AWS.
 
 ### Variables
 
+  * ```name``` - name of the bastion; suggest 'bastion-<unique_identifier>'
   * ```instance_type``` - instance type of bastion
   * ```authorized_keys_directory``` - folder of keys to allow for ssh
   * ```authorized_key_names``` - names of public keys to allow for ssh
@@ -39,6 +40,7 @@ Deploy a minimal, auto-healing, and immutable SSH Bastion host on AWS.
 module "bastion" {
   source = "github.com/BitGo/terraform-aws-bastion"
   version = "0.0.1"
+  name = "bastion-abc"
   instance_type = "t2.nano"
   authorized_keys_directory = "keys/ssh/"
   authorized_key_names = ["alice", "bob", "mallory"]
