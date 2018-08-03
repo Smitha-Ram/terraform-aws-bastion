@@ -1,5 +1,4 @@
 resource "aws_s3_bucket" "ssh_public_keys" {
-  region = "us-west-2"
   bucket_prefix = "ssh-keys-"
   acl = "public-read"
   website {
