@@ -24,7 +24,7 @@ resource "aws_s3_bucket_object" "ssh_public_keys" {
         ),
         "=",
         ""
-      )
+      ),
     "/\/\//",
     "\//",
     )
