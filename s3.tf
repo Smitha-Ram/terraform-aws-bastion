@@ -25,8 +25,8 @@ resource "aws_s3_bucket_object" "ssh_public_keys" {
         "=",
         ""
       ),
-    "/\/\//",
-    "\//",
+    "/\\/\\//",
+    "\\//",
     )
   }"
   content = "${file("${var.authorized_keys_directory}/${element(var.authorized_key_names,count.index)}.pub")}"
