@@ -2,7 +2,7 @@ resource "aws_lb" "bastion" {
   name = "${var.name}"
   internal = false
   load_balancer_type = "network"
-  subnets = ["${var.subnets}"]
+  subnets = ["${var.public_subnets}"]
   enable_deletion_protection = true
 }
 
