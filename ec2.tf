@@ -91,7 +91,6 @@ resource "aws_launch_configuration" "bastion" {
   image_id = "${data.aws_ami.coreos.image_id}"
   instance_type = "${var.instance_type}"
   user_data = "${data.ignition_config.bastion.rendered}"
-  vpc_zone_identifier = ["${var.private_subnets}"]
   enable_monitoring = true
   security_groups = [
     "${aws_security_group.bastion.id}"

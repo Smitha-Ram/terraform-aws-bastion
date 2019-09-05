@@ -24,8 +24,8 @@ Deploy a minimal, auto-healing, and immutable SSH Bastion host on AWS.
   * ```allowed_cidrs``` - CIDRs that are allowed to reach instance via SSH
   * ```allowed_users``` - Allowed users to ssh. Defaults to shellless 'tunnel' user
   * ```vpc_id``` - ID of VPC to launch instances in
-  * ```private_subnets``` - What subnets to allow EC2 to launch instances in
-  * ```public_subnets``` - What subnets for ELB/ASG
+  * ```private_subnets``` - Where the EC2 and ASG things live
+  * ```public_subnets``` - Where the ELB lives
   * ```ssh_port``` - Port for SSH to listen on
   * ```key_name``` - specify aws ssh key name to launch instance with
   * ```iam_instance_profile``` - specify an IAM instance profile
