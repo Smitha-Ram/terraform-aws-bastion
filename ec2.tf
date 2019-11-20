@@ -45,7 +45,8 @@ data "ignition_file" "sshd_authorized_keys" {
   content {
     content = <<EOF
 #!/bin/bash
-curl -sf "${aws_s3_bucket.ssh_public_keys.website_endpoint}/$${2/SHA256:/}"
+fingerprint=$(printf "$${2/SHA256:/}" | base64 -d 2>/dev/null | xxd -c 32 -p)
+curl -sf "${aws_s3_bucket.ssh_public_keys.website_endpoint}/$${fingerprint}"
 EOF
   }
 }
