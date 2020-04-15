@@ -11,7 +11,7 @@ resource "aws_s3_bucket_object" "ssh_public_keys" {
   key = "${
     replace(
       replace(
-        base64sha256(
+        sha256(
           base64decode(
             element(
               split(
