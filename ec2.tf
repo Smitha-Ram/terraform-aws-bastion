@@ -89,7 +89,7 @@ data "ignition_config" "bastion" {
 }
 
 resource "aws_launch_configuration" "bastion" {
-  image_id = "${data.aws_ami.coreos.image_id}"
+  image_id = "ami-0adf78a0f99af398f"
   instance_type = "${var.instance_type}"
   user_data = "${data.ignition_config.bastion.rendered}"
   enable_monitoring = true
