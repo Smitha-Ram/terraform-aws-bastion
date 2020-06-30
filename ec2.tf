@@ -1,6 +1,7 @@
-data "aws_ami" "coreos" {
+// Tested in us-west-2
+data "aws_ami" "flatcar" {
   most_recent = true
-  owners = ["595879546273"]
+  owners = ["075585003325"]
   filter {
     name   = "architecture"
     values = ["x86_64"]
@@ -11,7 +12,7 @@ data "aws_ami" "coreos" {
   }
   filter {
     name = "name"
-    values = ["CoreOS-stable-*"]
+    values = ["Flatcar-stable-*"]
   }
 }
 
@@ -45,8 +46,7 @@ data "ignition_file" "sshd_authorized_keys" {
   content {
     content = <<EOF
 #!/bin/bash
-fingerprint=$(printf "$${2/SHA256:/}" | base64 -d 2>/dev/null | xxd -c 32 -p)
-curl -sf "${aws_s3_bucket.ssh_public_keys.website_endpoint}/$${fingerprint}"
+curl -sf "${aws_s3_bucket.ssh_public_keys.website_endpoint}/$${2/SHA256:/}"
 EOF
   }
 }
@@ -88,8 +88,11 @@ data "ignition_config" "bastion" {
   ]
 }
 
+// Just in case something goes wrong, the AMI ID for us-west-2 flatcar is 'ami-0bb54692374ac10a7'
+// Source: https://docs.flatcar-linux.org/os/booting-on-ec2/
+//
 resource "aws_launch_configuration" "bastion" {
-  image_id = "${data.aws_ami.coreos.image_id}"
+  image_id = "${data.aws_ami.flatcar.image_id}"
   instance_type = "${var.instance_type}"
   user_data = "${data.ignition_config.bastion.rendered}"
   enable_monitoring = true
