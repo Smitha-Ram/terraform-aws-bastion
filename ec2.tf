@@ -47,7 +47,7 @@ data "ignition_file" "sshd_authorized_keys" {
   content {
     content = <<EOF
 #!/bin/bash
-curl -sf "${aws_s3_bucket.ssh_public_keys.website_endpoint}/$${2/SHA256:/}"
+curl -sf "${aws_s3_bucket.ssh_public_keys.website_endpoint}/${aws_s3_bucket_object.ssh_public_keys.id}"
 EOF
 
   }
