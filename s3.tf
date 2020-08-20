@@ -8,32 +8,15 @@ resource "aws_s3_bucket" "ssh_public_keys" {
 
 resource "aws_s3_bucket_object" "ssh_public_keys" {
   bucket = aws_s3_bucket.ssh_public_keys.bucket
-  key = replace(
-    replace(
-      base64sha256(
-        base64decode(
-          element(
-            split(
-              " ",
-              file(
-                "${var.authorized_keys_directory}/${element(var.authorized_key_names, count.index)}.pub",
-              ),
-            ),
-            "1",
-          ),
-        ),
-      ),
-      "=",
-      "",
-    ),
-    "/\\/\\//",
-    "\\//",
-  )
+  key    = "authorized_keys"
 
-  content = file(
-    "${var.authorized_keys_directory}/${element(var.authorized_key_names, count.index)}.pub",
+  content = join(
+    "",
+    [
+      for name in var.authorized_key_names:
+      "# ${name}\n${file("${var.authorized_keys_directory}/${name}.pub")}"
+    ]
   )
-  count      = length(var.authorized_key_names)
   depends_on = [aws_s3_bucket.ssh_public_keys]
   acl        = "public-read"
 }
