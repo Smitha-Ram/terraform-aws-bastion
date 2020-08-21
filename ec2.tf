@@ -30,9 +30,11 @@ data "ignition_file" "sshd_config" {
     content = <<EOF
 AllowUsers ${join(" ", var.allowed_users)}
 AuthenticationMethods publickey
-PermitRootLogin no
 AuthorizedKeysCommandUser nobody
 AuthorizedKeysCommand /etc/ssh/authorized_keys.sh
+PermitRootLogin no
+PermitTunnel yes
+StreamLocalBindUnlink yes
 EOF
 
   }
