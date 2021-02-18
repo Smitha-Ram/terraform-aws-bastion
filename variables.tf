@@ -30,6 +30,12 @@ variable "allowed_cidrs" {
   type = list(string)
 }
 
+variable "create_egress_rule" {
+  description = "Should this module create a rule to allow the bastion to connect to everywhere?"
+  default     = true
+  type        = bool
+}
+
 variable "vpc_id" {
 }
 
