@@ -28,6 +28,17 @@ variable "iam_instance_profile" {
 
 variable "allowed_cidrs" {
   type = list(string)
+  
+}
+
+variable "allowed_egress_cidrs" {
+  type = list(string)
+  default = ["0.0.0.0/0"]
+}
+
+variable "allowed_ipv6_egress_cidrs" {
+ type = list(string)
+ default = ["::/0"]
 }
 
 variable "vpc_id" {
