@@ -2,6 +2,10 @@ output "dns_name" {
   value = aws_lb.bastion.dns_name
 }
 
+output "s3_bucket" {
+  value = aws_s3_bucket.ssh_public_keys.id
+}
+
 output "security_group" {
   value = aws_security_group.bastion.id
 }
