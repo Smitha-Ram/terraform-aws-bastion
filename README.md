@@ -22,7 +22,10 @@ Deploy a minimal, auto-healing, and immutable SSH Bastion host on AWS.
   * ```authorized_keys_directory``` - folder of keys to allow for ssh
   * ```authorized_key_names``` - names of public keys to allow for ssh
   * ```allowed_cidrs``` - CIDRs that are allowed to reach instance via SSH
+  * ```allowed_egress_cidrs``` - CIDRs that the bastion (and hence users of it) are allowed to reach
+  * ```allowed_ipv6_egress_cidrs``` - IPv6 CIDRs that the bastion (and hence users of it) are allowed to reach
   * ```allowed_users``` - Allowed users to ssh. Defaults to shellless 'tunnel' user
+  * ```create_egress_rule``` - Should a security group rule for egress be created? (in certain circumstances you may want to manage these externally using the `security_group` output)
   * ```vpc_id``` - ID of VPC to launch instances in
   * ```private_subnets``` - Where the EC2 and ASG things live
   * ```public_subnets``` - Where the ELB lives
@@ -34,6 +37,7 @@ Deploy a minimal, auto-healing, and immutable SSH Bastion host on AWS.
 ### Outputs
 
   * ```dns_name``` - DNS Name of the load balancer used to reach bastions
+  * ```s3_bucket``` - The s3 bucket name that keys are stored in
   * ```security_group``` - The security group id created and assigned to the bastion host
   * ```zone_id``` - The ELB Zone Id assigned to the load balancer. Used by Route53 for alias records.
 
