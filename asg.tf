@@ -1,5 +1,5 @@
 resource "aws_autoscaling_group" "bastion" {
-  name                      = "${var.name} - ${aws_launch_configuration.bastion.name}"
+  name_prefix               = var.name
   vpc_zone_identifier       = var.private_subnets
   desired_capacity          = "1"
   min_size                  = "1"
@@ -21,6 +21,11 @@ resource "aws_autoscaling_group" "bastion" {
       "propagate_at_launch" = "true"
     },
   ]
+
+  instance_refresh {
+    strategy = "Rolling"
+  }
+
   lifecycle {
     create_before_destroy = true
   }
