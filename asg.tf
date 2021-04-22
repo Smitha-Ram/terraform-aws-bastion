@@ -8,12 +8,18 @@ resource "aws_autoscaling_group" "bastion" {
   health_check_type         = "ELB"
   force_delete              = false
   wait_for_capacity_timeout = 0
-  launch_configuration      = aws_launch_configuration.bastion.name
   target_group_arns         = [aws_lb_target_group.bastion.arn]
+
+  launch_template {
+    id      = aws_launch_template.bastion.id
+    version = "$Latest"
+  }
+
   enabled_metrics = [
     "GroupInServiceInstances",
     "GroupTotalInstances",
   ]
+
   tags = [
     {
       "key"                 = "Name"
