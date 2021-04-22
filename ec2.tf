@@ -99,7 +99,7 @@ data "ignition_config" "bastion" {
 resource "aws_launch_template" "bastion" {
   image_id      = data.aws_ami.flatcar.image_id
   instance_type = var.instance_type
-  user_data     = data.ignition_config.bastion.rendered
+  user_data     = base64encode(data.ignition_config.bastion.rendered)
   key_name      = var.key_name
 
   iam_instance_profile {
