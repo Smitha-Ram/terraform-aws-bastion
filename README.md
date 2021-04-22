@@ -19,6 +19,7 @@ Deploy a minimal, auto-healing, and immutable SSH Bastion host on AWS.
 
   * ```name``` - name of the bastion; suggest 'bastion-<unique_identifier>'
   * ```instance_type``` - instance type of bastion
+  * ```additional_security_groups``` - security groups to add to the bastion instance, e.g. if you have other security groups with "source_security_group" rules that you'd like the bastion to be covered by
   * ```authorized_keys_directory``` - folder of keys to allow for ssh
   * ```authorized_key_names``` - names of public keys to allow for ssh
   * ```allowed_cidrs``` - CIDRs that are allowed to reach instance via SSH

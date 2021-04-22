@@ -111,9 +111,10 @@ resource "aws_launch_template" "bastion" {
   }
 
   network_interfaces {
-    security_groups = [
-      aws_security_group.bastion.id,
-    ]
+    security_groups = concat(
+      [aws_security_group.bastion.id],
+      var.additional_security_groups,
+    )
 
     associate_public_ip_address = var.associate_public_ip_address
   }
