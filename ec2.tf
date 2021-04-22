@@ -96,21 +96,25 @@ data "ignition_config" "bastion" {
 // Just in case something goes wrong, the AMI ID for us-west-2 flatcar is 'ami-0bb54692374ac10a7'
 // Source: https://docs.flatcar-linux.org/os/booting-on-ec2/
 //
-resource "aws_launch_configuration" "bastion" {
-  image_id          = data.aws_ami.flatcar.image_id
-  instance_type     = var.instance_type
-  user_data         = data.ignition_config.bastion.rendered
-  enable_monitoring = true
-  security_groups = [
-    aws_security_group.bastion.id,
-  ]
-  root_block_device {
-    volume_size = "8"
+resource "aws_launch_template" "bastion" {
+  image_id      = data.aws_ami.flatcar.image_id
+  instance_type = var.instance_type
+  user_data     = data.ignition_config.bastion.rendered
+  key_name      = var.key_name
+
+  iam_instance_profile {
+    name = var.iam_instance_profile
   }
-  iam_instance_profile        = var.iam_instance_profile
-  associate_public_ip_address = var.associate_public_ip_address
-  key_name                    = var.key_name
-  lifecycle {
-    create_before_destroy = true
+
+  monitoring {
+    enabled = true
+  }
+
+  network_interfaces {
+    security_groups = [
+      aws_security_group.bastion.id,
+    ]
+
+    associate_public_ip_address = var.associate_public_ip_address
   }
 }
