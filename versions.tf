@@ -5,8 +5,13 @@ terraform {
       source  = "hashicorp/aws"
       version = ">= 4.0.0"
     }
-    ignition = {
-      source = "terraform-providers/ignition"
+    ct = {
+      source  = "poseidon/ct"
+      version = "0.10.0"
+    }
+    local = {
+      source = "hashicorp/local"
+      version = "2.2.3"
     }
   }
 }

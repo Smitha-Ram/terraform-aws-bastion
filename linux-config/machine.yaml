@@ -1,0 +1,47 @@
+passwd:
+  users:
+    - name: tunnel
+      home_dir: /dev/shm
+      no_create_home: true
+      shell: /bin/false
+
+storage:
+  files:
+    - path: /etc/ssh/sshd_config
+      filesystem: root
+      contents:
+        source: <<EOF
+                '{{AllowUsers ${join(" ", allowed_users)}
+                 AuthenticationMethods publickey
+                 AuthorizedKeysCommandUser nobody
+                 AuthorizedKeysCommand /etc/ssh/authorized_keys.sh
+                 PermitRootLogin no
+                 PermitTunnel yes
+                 StreamLocalBindUnlink yes | b64encode }}'
+                 EOF
+    - path: /etc/ssh/authorized_keys.sh
+      filesystem: root
+      mode: 493
+      uid: 0
+      gid: 0
+      contents:
+        source: <<-EOF
+                '{{#!/bin/bash
+                 curl -sf ${aws_s3_bucket}/authorized_keys | b64encode }}'
+                EOF
+
+systemd:
+  units:
+    - name: sshd.socket
+      dropins:
+        - name: 10-sshd-port.conf
+          contents: |
+            [Socket]
+            ListenStream=
+            ListenStream=${ssh_port}
+    - name: docker.service
+      mask: true
+      enabled: true
+    - name: containerd.service
+      mask: true
+      enabled: true
