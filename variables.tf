@@ -34,7 +34,6 @@ variable "additional_security_groups" {
 
 variable "allowed_cidrs" {
   type = list(string)
-  
 }
 
 variable "allowed_egress_cidrs" {
